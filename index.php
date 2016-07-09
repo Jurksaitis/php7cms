@@ -50,6 +50,16 @@ include_once 'initialise.php';
 
 echo $session->get('hello.world'); // bonjour
 
+$user = new User($db, "test3", "1234", "nickname1");
+print_r($user);
+
+
+if($user->create()){
+  echo "abc";
+}else{
+  echo "faaalse";
+}
+
 
 
 

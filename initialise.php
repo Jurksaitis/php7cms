@@ -3,6 +3,7 @@ define('ROOT',  $_SERVER['DOCUMENT_ROOT'].'/phptest/');
 
 include_once ROOT.'class/Database.class.php';
 include_once ROOT.'class/Session.class.php';
+include_once ROOT.'class/User.class.php';
 
 // Define configuration
 define('DB_HOST', 'localhost');
