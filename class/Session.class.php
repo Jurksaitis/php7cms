@@ -1,7 +1,7 @@
 <?php
 //based on @eddmann SecureSessionHandler.php
 
-class SessionHandler extends SessionHandler {
+class Session extends SessionHandler {
 
     protected $key, $name, $cookie;
     public function __construct($key, $name = 'MY_SESSION', $cookie = [])
@@ -18,7 +18,6 @@ class SessionHandler extends SessionHandler {
         ];
         $this->setup();
     }
-
     private function setup()
     {
         ini_set('session.use_cookies', 1);
@@ -32,17 +31,17 @@ class SessionHandler extends SessionHandler {
             $this->cookie['httponly']
         );
     }
-
     public function start()
     {
         if (session_id() === '') {
             if (session_start()) {
-                return mt_rand(0, 4) === 0 ? $this->refresh() : true; // 1/5
+                echo "Session started".session_id();
+                return true;
+                //return mt_rand(0, 4) === 0 ? $this->refresh() : true; // 1/5
             }
         }
         return false;
     }
-
     public function forget()
     {
         if (session_id() === '') {
@@ -83,7 +82,6 @@ class SessionHandler extends SessionHandler {
         $_SESSION['_last_activity'] = time();
         return false;
     }
-
     public function isFingerprint()
     {
         $hash = md5(
@@ -96,7 +94,6 @@ class SessionHandler extends SessionHandler {
         $_SESSION['_fingerprint'] = $hash;
         return true;
     }
-
     public function isValid()
     {
         return ! $this->isExpired() && $this->isFingerprint();
@@ -105,7 +102,7 @@ class SessionHandler extends SessionHandler {
     {
             if (session_id() === '')
               $this->start();
-              
+
             $parsed = explode('.', $name);
             $result = $_SESSION;
             while ($parsed) {
@@ -134,5 +131,4 @@ class SessionHandler extends SessionHandler {
             }
             $session[array_shift($parsed)] = $value;
     }
-
 }
