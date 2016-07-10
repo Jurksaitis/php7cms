@@ -48,16 +48,16 @@ include_once 'initialise.php';
 //
 // $session->put('hello.world', 'bonjour');
 
-echo $session->get('hello.world'); // bonjour
+// echo $session->get('hello.world'); // bonjour
 
-$user = new User($db, "test3", "1234", "nickname1");
+$user = new User($db, "test5", "123456", "nickname3");
 print_r($user);
 
 
 if($user->create()){
-  echo "abc";
+  echo "User was created.";
 }else{
-  echo "faaalse";
+  echo "There was a problem with user creation.";
 }
 
 

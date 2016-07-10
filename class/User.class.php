@@ -13,14 +13,17 @@ class User{
   }
   public function create(){
     $db = $this->db;
+    try{
     $db->beginTransaction();
     $db->query('INSERT INTO user (email, password, username) VALUES (:email, :password, :username)');
     $db->bind(':email', $this->email);
     $db->bind(':password', $this->password);
     $db->bind(':username', $this->username);
+    $db->execute();
     $db->endTransaction();
-    if($db->lastInsertId() != 0){
-      return true;
-    }else return false;
+  } catch (PDOException $e) {
+    return false;
+  }
+  return true;
   }
 }
